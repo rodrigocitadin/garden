@@ -45,6 +45,8 @@ func AppendLinkByMonth(filePath, link string) error {
 				i++
 			}
 
+			output = append(output, "")
+
 			inserted = true
 			continue
 		}
@@ -68,5 +70,6 @@ func AppendLinkByMonth(filePath, link string) error {
 		return fmt.Errorf("Unable to insert link")
 	}
 
-	return os.WriteFile(filePath, []byte(strings.Join(output, "\n")), 0644)
+	finalText := strings.TrimRight(strings.Join(output, "\n"), "\n") + "\n"
+	return os.WriteFile(filePath, []byte(finalText), 0644)
 }
